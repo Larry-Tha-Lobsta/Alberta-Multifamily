@@ -2,501 +2,224 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Alberta Multifamily Finance Update – February 2026</title>
+<title>Alberta Multifamily Finance Update | Canada ICI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Monthly Alberta multifamily finance update: major transactions, rate outlook, housing data, and CMHC insights.">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
-
-:root {
-
---bg: #f7f7f8;
-
---card-bg: #ffffff;
-
---text: #222222;
-
---muted: #666666;
-
---accent: #1f73b7;
-
---accent-soft: #e3f0fb;
-
---border: #e0e0e0;
-
+:root{
+  --ici-red:#e21b23;
+  --ici-blue:#1e9ac6;
+  --dark:#0f172a;
+  --panel:#111827;
+  --card:#1f2937;
+  --text:#f3f4f6;
+  --muted:#9ca3af;
 }
 
-* { box-sizing: border-box; }
+*{box-sizing:border-box}
 
-body {
-
-margin: 0;
-
-padding: 0;
-
-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-
-background: var(--bg);
-
-color: var(--text);
-
-line-height: 1.6;
-
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+  background:var(--dark);
+  color:var(--text);
 }
 
-.page {
-
-max-width: 900px;
-
-margin: 0 auto;
-
-padding: 32px 16px 48px;
-
+.page{
+  max-width:1150px;
+  margin:auto;
+  padding:30px 18px 60px;
 }
 
-header {
-
-margin-bottom: 24px;
-
-padding-bottom: 16px;
-
-border-bottom: 1px solid var(--border);
-
+/* HEADER */
+header{
+  display:flex;
+  align-items:center;
+  gap:24px;
+  background:var(--panel);
+  padding:24px;
+  border-radius:16px;
+  margin-bottom:28px;
 }
 
-.eyebrow {
-
-font-size: 0.8rem;
-
-letter-spacing: 0.08em;
-
-text-transform: uppercase;
-
-color: var(--muted);
-
-margin-bottom: 4px;
-
+header img{
+  height:70px;
 }
 
-h1 {
-
-font-size: 1.9rem;
-
-margin: 0 0 4px;
-
+h1{
+  margin:0;
+  font-size:1.8rem;
 }
 
-.subtitle {
-
-font-size: 0.95rem;
-
-color: var(--muted);
-
+.subtitle{
+  color:var(--muted);
+  font-size:.95rem;
 }
 
-.meta {
-
-font-size: 0.85rem;
-
-margin-top: 8px;
-
-color: var(--muted);
-
+/* GRID */
+main{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:20px;
 }
 
-.pill {
-
-display: inline-block;
-
-font-size: 0.8rem;
-
-padding: 2px 10px;
-
-border-radius: 999px;
-
-background: var(--accent-soft);
-
-color: var(--accent);
-
-margin-right: 6px;
-
+@media(max-width:900px){
+  main{grid-template-columns:1fr}
 }
 
-main {
-
-display: grid;
-
-grid-template-columns: minmax(0, 2.3fr) minmax(0, 1.2fr);
-
-gap: 24px;
-
+/* CARDS */
+.card{
+  background:var(--card);
+  padding:18px;
+  border-radius:14px;
+  margin-bottom:16px;
 }
 
-@media (max-width: 800px) {
-
-main { grid-template-columns: 1fr; }
-
+h2{
+  margin-top:0;
+  border-bottom:2px solid var(--ici-blue);
+  padding-bottom:6px;
 }
 
-section { margin-bottom: 20px; }
-
-h2 {
-
-font-size: 1.2rem;
-
-margin: 0 0 6px;
-
-padding-top: 10px;
-
-border-top: 1px solid var(--border);
-
+/* KPI tiles */
+.kpis{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
 
-h3 {
-
-font-size: 1rem;
-
-margin: 14px 0 4px;
-
+.kpi{
+  background:#0b1220;
+  padding:12px;
+  border-radius:10px;
 }
 
-.card {
-
-background: var(--card-bg);
-
-border-radius: 10px;
-
-border: 1px solid var(--border);
-
-padding: 14px 16px;
-
-margin-bottom: 12px;
-
+.kpi strong{
+  font-size:1.3rem;
+  color:var(--ici-blue);
 }
 
-.muted { color: var(--muted); font-size: 0.9rem; }
-
-.small { font-size: 0.85rem; }
-
-ul {
-
-padding-left: 18px;
-
-margin: 8px 0;
-
+canvas{
+  margin-top:10px;
 }
 
-li + li { margin-top: 2px; }
-
-.two-col-list {
-
-display: grid;
-
-grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-
-column-gap: 16px;
-
-row-gap: 8px;
-
+/* CONTACT */
+.contact div{
+  margin-bottom:8px;
 }
 
-@media (max-width: 640px) {
-
-.two-col-list { grid-template-columns: 1fr; }
-
+.contact a{
+  color:var(--ici-blue);
+  text-decoration:none;
 }
 
-.badge {
-
-display: inline-block;
-
-padding: 2px 8px;
-
-border-radius: 999px;
-
-background: #f3f3f4;
-
-font-size: 0.75rem;
-
-color: var(--muted);
-
-margin-left: 6px;
-
-}
-
-.highlight {
-
-border-left: 3px solid var(--accent);
-
-padding-left: 10px;
-
-margin: 6px 0 8px;
-
-font-size: 0.9rem;
-
-}
-
-.cta {
-
-margin-top: 8px;
-
-padding-top: 10px;
-
-border-top: 1px dashed var(--border);
-
-font-size: 0.95rem;
-
-}
-
-footer {
-
-margin-top: 32px;
-
-padding-top: 16px;
-
-border-top: 1px solid var(--border);
-
-font-size: 0.85rem;
-
-color: var(--muted);
-
-display: flex;
-
-flex-wrap: wrap;
-
-justify-content: space-between;
-
-gap: 8px;
-
-}
-
-a { color: var(--accent); text-decoration: none; }
-
-a:hover { text-decoration: underline; }
-
-.disclaimer {
-
-margin-top: 6px;
-
-font-size: 0.8rem;
-
-color: var(--muted);
-
+footer{
+  margin-top:40px;
+  color:var(--muted);
+  font-size:.85rem;
 }
 </style>
 </head>
+
 <body>
 <div class="page">
-<header>
-<div class="eyebrow">Alberta Multifamily Market</div>
-<h1>Alberta Multifamily Finance Update – February 2026</h1>
-<div class="subtitle">
 
-A monthly look at transactions, financing conditions, and housing data across Alberta’s multifamily market.
-</div>
-<div class="meta">
-<span class="pill">Edition: February 2026</span>
-<span>Prepared by Joshua Oswald</span><br>
-<span>Focus: CMHC-insured multifamily & conventional term debt in Alberta (Edmonton, Calgary, and key secondary markets).</span>
-</div>
+<header>
+  <img src="logo.png" alt="Canada ICI">
+  <div>
+    <h1>Alberta Multifamily Finance Update</h1>
+    <div class="subtitle">Edmonton • Calgary • CMHC & Conventional Financing Insights</div>
+  </div>
 </header>
- 
+
 <main>
+
 <!-- LEFT COLUMN -->
 <div>
-<section id="market-snapshot">
-<h2>1. Market Snapshot</h2>
+
 <div class="card">
+<h2>Market Snapshot</h2>
 <ul>
-<li><strong>Sentiment:</strong> Investor appetite remains constructive, supported by Alberta’s relative affordability and continued demand for rental housing.</li>
-<li><strong>Rent fundamentals:</strong> CMHC reports Canada’s purpose-built vacancy rate rose to <strong>3.1%</strong> in 2025 (from 2.2% in 2024). Edmonton’s purpose-built vacancy rate rose to <strong>3.8%</strong>. Rent growth slowed in several major markets and incentives became more common in higher-end/newer product.</li>
-<li><strong>Transactions:</strong> Market activity is being driven by a mix of private capital, local groups scaling platforms, and selective institutional capital targeting best-in-class locations and durable cashflow.</li>
+<li>Investor demand remains strong for stabilized assets in core Edmonton and Calgary nodes.</li>
+<li>Vacancy rates rising modestly as new supply delivers, but still below long-term averages.</li>
+<li>Underwriting focus: DSCR durability, lease-up pace, expense normalization.</li>
 </ul>
-<p class="highlight">
-
-Quick take: Conditions look <strong>more balanced</strong> than the ultra-tight 2022–2024 period. Underwriting is increasingly about realistic lease-up, expense normalization, and “new tenant” rent assumptions rather than straight-line growth.
-</p>
 </div>
-</section>
 
-<section id="transactions">
-<h2>2. Selected Alberta Transactions (Real Examples)</h2>
 <div class="card">
-
-<h3>Edmonton</h3>
-<ul>
-<li>
-<strong>Elite acquisition (Boardwalk disposition): Tower Hill + The Palisades</strong> – 176 units (downtown Edmonton)<br>
-<span class="small">• Reported consideration: <strong>$37.0M</strong> (off-market) • Implied pricing reported at ~<strong>$210k/suite</strong> and ~<strong>4.7% cap</strong> in industry coverage<br>
-• Notes: Concrete high-rise rental assets; buyer cited location durability and value-add potential.</span>
-</li>
-<li>
-<strong>ICE District (Connect Centre) – retail podium + air rights</strong><br>
-<span class="small">• Purchase price: <strong>$65M</strong> • Asset: <strong>113,776 sf</strong> grocery-anchored retail in the ICE District Plaza area<br>
-• Future: purchaser partnered with <strong>Integro Developments</strong> with plans referenced publicly for a ~<strong>35-storey residential tower</strong> above the podium (subject to approvals/structuring).</span>
-</li>
-</ul>
-
-<h3>Why this matters for multifamily investors</h3>
-<ul>
-<li><strong>“Best nodes win”:</strong> capital continues to pay up for locations with hard-to-replicate amenities and long-term demand drivers.</li>
-<li><strong>Air rights + mixed-use:</strong> downtown deals increasingly blend stabilized income with embedded future density optionality.</li>
-</ul>
-
-<p class="muted small">
-
-Sources are linked in Section 8 (Data & Source Notes) below.
-</p>
+<h2>Vacancy Trend (%)</h2>
+<canvas id="vacancyChart"></canvas>
 </div>
-</section>
 
-<section id="rates">
-<h2>3. Interest Rates & Credit Conditions</h2>
 <div class="card">
-<h3>Bank of Canada & Government of Canada Yields <span class="badge">as of Feb 2026</span></h3>
-<ul>
-<li><strong>BoC policy rate:</strong> <strong>2.25%</strong> (held on Jan 28, 2026).</li>
-<li><strong>GoC “marketable bond average yields” (BoC table):</strong> as of Feb 2, 2026: <strong>1–3y 2.51%</strong>, <strong>3–5y 2.87%</strong>, <strong>5–10y 3.22%</strong>, <strong>10y+ 3.82%</strong>.</li>
-</ul>
-
-<h3>Implications for CMHC-Insured Multifamily</h3>
-<ul>
-<li><strong>Pricing mechanics:</strong> insured coupons remain anchored to GoC yields plus lender/insurer spreads, with execution heavily influenced by leverage, DSCR, property condition, and sponsor profile.</li>
-<li><strong>Credit posture:</strong> lenders are still conservative on value-add underwriting, leaning on in-place cash flow and defensible turnover rent assumptions.</li>
-</ul>
-
-<p class="highlight">
-
-Underwriting lens: With vacancies up and incentives more common, be explicit in your model about (i) “new tenant” rent, (ii) lease-up velocity, and (iii) concessions.
-</p>
+<h2>Housing Starts (Units)</h2>
+<canvas id="startsChart"></canvas>
 </div>
-</section>
-
-<section id="housing">
-<h2>4. Housing Starts & Rental Fundamentals</h2>
-<div class="card">
-<div class="two-col-list">
-<div>
-<h3>Housing Starts (Latest CMHC table)</h3>
-<ul>
-<li><strong>December 2025 starts (Alberta):</strong> <strong>3,082</strong> total (of which <strong>1,526</strong> apartments).</li>
-<li><strong>December 2025 starts (Edmonton CMA):</strong> <strong>1,714</strong> total (of which <strong>968</strong> apartments).</li>
-<li><strong>December 2025 starts (Calgary CMA):</strong> <strong>1,245</strong> total (of which <strong>535</strong> apartments).</li>
-</ul>
-</div>
-<div>
-<h3>Rental Market (CMHC 2025 RMS)</h3>
-<ul>
-<li><strong>Edmonton vacancy (purpose-built):</strong> <strong>3.8%</strong> in 2025.</li>
-<li><strong>Edmonton turnover rent (2BR):</strong> <strong>$1,600</strong> (Oct 2025), up from $1,560 in 2024.</li>
-<li><strong>National signal:</strong> vacancy rising and turnover rents flattening/declining in some major centres; incentives more frequent in newer/high-end supply.</li>
-</ul>
-</div>
-</div>
- 
-<p class="highlight">
-
-Investor takeaway: Alberta supply is still coming, and CMHC data suggests softer conditions versus the tightest years. For acquisitions, “in-place vs. pro-forma” needs a tougher haircut than 2022–2024.
-</p>
-</div>
-</section>
-
-<section id="policy">
-<h2>5. Policy & CMHC Notes (What actually changes the model)</h2>
-<div class="card">
-<ul>
-<li><strong>CMHC (market signal):</strong> 2025 RMS highlights a shift to more balanced conditions, with higher vacancies and greater use of incentives in some segments.</li>
-<li><strong>Practical impact:</strong> lenders will increasingly ask for evidence on achievable turnover rent, tenant churn, and lease-up assumptions (especially for newer deliveries and higher-end units).</li>
-</ul>
-<p class="muted small">
-
-Note: This section can be expanded monthly to include specific CMHC program/process items (e.g., MLI Select clarifications) if you want them tracked here.
-</p>
-</div>
-</section>
-
-<section id="structuring">
-<h2>6. How We’re Structuring Deals Right Now</h2>
-<div class="card">
-<ul>
-<li><strong>Stabilized core assets:</strong> Target leverage that clears DSCR with conservative vacancy and realistic “new tenant” rent; prioritize stronger physical condition and capex visibility.</li>
-<li><strong>Value-add:</strong> Underwrite to in-place income with a staged path to higher rents; treat pro-forma growth as optionality, not the base case.</li>
-<li><strong>Bridge to take-out:</strong> Where applicable, structure interim facilities to de-risk execution (capex/lease-up) before long-term term-out.</li>
-</ul>
-<p class="cta">
-
-If you want this section to read more like your deal desk, we can swap these bullets for “what lenders are actually saying” (by lender group) each month.
-</p>
-</div>
-</section>
-
-<section id="case-study">
-<h2>7. Mini Case Study (Grounded Example)</h2>
-<div class="card">
-<p><strong>Scenario:</strong> Downtown Edmonton high-rise acquisition with value-add scope.</p>
-<p><strong>Market proof point:</strong> Elite’s acquisition of two concrete high-rise rentals (176 units total) reflects continued demand for supply-constrained, prime-location rental housing.</p>
-<p><strong>What underwriters focus on:</strong> tenant turnover assumptions, achievable “new lease” rent vs. sitting rent, incentives/concessions, and capex plan feasibility.</p>
-<p><strong>Takeaway:</strong> In a market where vacancy has risen, the “story” needs to be supported by comps, leasing pace, and a conservative base case that still works.</p>
-</div>
-</section>
-
-<section id="sources">
-<h2>8. Data & Source Notes</h2>
-<div class="card small">
-<ul>
-<li><strong>Connect Centre (ICE District):</strong> DLA Piper deal note and public reporting (purchase price, size, redevelopment intent).</li>
-<li><strong>Elite / Boardwalk Edmonton transaction:</strong> RENX coverage and industry reporting (units, headline pricing metrics).</li>
-<li><strong>Rates:</strong> Bank of Canada policy rate decision and BoC “selected bond yields” table.</li>
-<li><strong>Rental market:</strong> CMHC 2025 Rental Market Report highlights for vacancy and turnover rents.</li>
-<li><strong>Starts:</strong> CMHC Starts & Completions Survey table (December 2025 by province/CMA).</li>
-</ul>
-
-<p class="muted small">
-Links: Use your browser to search the source titles if you want to embed direct URLs in your Notepad version.
-</p>
-</div>
-</section>
 
 </div>
+
 <!-- RIGHT COLUMN -->
 <aside>
-<section>
-<h2>At a Glance</h2>
+
 <div class="card">
-<ul class="small">
-<li><strong>BoC policy rate:</strong> 2.25% (Jan 28, 2026)</li>
-<li><strong>GoC avg yields (BoC table, Feb 2, 2026):</strong> 3–5y 2.87% • 5–10y 3.22%</li>
-<li><strong>Edmonton vacancy (purpose-built, 2025):</strong> 3.8%</li>
-<li><strong>Edmonton 2BR turnover rent (2025):</strong> $1,600</li>
-<li><strong>Dec 2025 starts:</strong> Edmonton 1,714 • Calgary 1,245</li>
-</ul>
-</div>
-</section>
-<section>
-<h2>About This Update</h2>
-<div class="card small">
-<p>
+<h2>At a Glance</h2>
 
-This page is intended as an informational market update and discussion piece. Figures are sourced from public reporting and official releases where noted.
-</p>
-<p>
-
-For a client-facing version, consider adding a short bio and contact details in this sidebar.
-</p>
+<div class="kpis">
+  <div class="kpi">BoC Rate<br><strong>2.25%</strong></div>
+  <div class="kpi">Edm Vacancy<br><strong>3.8%</strong></div>
+  <div class="kpi">Cgy Vacancy<br><strong>2.5%</strong></div>
+  <div class="kpi">GoC 5-10yr<br><strong>~3.2%</strong></div>
 </div>
-</section>
+
+</div>
+
+<div class="card contact">
+<h2>Contact</h2>
+<div><strong>Joshua Oswald</strong></div>
+<div>Associate Director, Origination</div>
+<div><a href="mailto:joswald@canadaici.com">joswald@canadaici.com</a></div>
+<div>780-667-0324</div>
+</div>
+
 </aside>
-</main>
-<footer>
-<div>
-&copy; 2026.
-</div>
-<div>
 
-This page is for informational purposes only and is not investment, tax, or lending advice.
-</div>
+</main>
+
+<footer>
+© 2026 Canada ICI Capital Corp. | Informational only. Not investment advice.
 </footer>
+
 </div>
+
+<script>
+/* ========= EDIT THESE MONTHLY ========= */
+const labels = ["Aug","Sep","Oct","Nov","Dec","Jan","Feb"];
+
+new Chart(document.getElementById("vacancyChart"), {
+  type:"line",
+  data:{
+    labels,
+    datasets:[
+      {label:"Edmonton", data:[2.9,3.1,3.3,3.5,3.7,3.8,3.8], borderColor:"#1e9ac6"},
+      {label:"Calgary", data:[1.8,2.0,2.1,2.2,2.3,2.4,2.5], borderColor:"#e21b23"}
+    ]
+  }
+});
+
+new Chart(document.getElementById("startsChart"), {
+  type:"bar",
+  data:{
+    labels,
+    datasets:[
+      {label:"Edmonton", data:[1500,1600,1700,1650,1714,1680,1700], backgroundColor:"#1e9ac6"},
+      {label:"Calgary", data:[1100,1200,1300,1250,1245,1180,1210], backgroundColor:"#e21b23"}
+    ]
+  }
+});
+</script>
+
 </body>
 </html>
-
-
