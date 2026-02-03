@@ -2,124 +2,248 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Alberta Multifamily Finance Update | Canada ICI</title>
+<title>Alberta Multifamily Finance Update – February 2026 | Canada ICI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Monthly Alberta multifamily finance update: transactions, rate outlook, housing data, and CMHC insights across Edmonton and Calgary.">
 
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Chart.js (simple, works as a single file) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
 <style>
 :root{
-  --ici-red:#e21b23;
-  --ici-blue:#1e9ac6;
-  --dark:#0f172a;
-  --panel:#111827;
-  --card:#1f2937;
-  --text:#f3f4f6;
-  --muted:#9ca3af;
+  --bg:#f7f8fb;
+  --panel:#ffffff;
+  --text:#121826;
+  --muted:#5b667a;
+  --border:#e6e8ef;
+
+  /* Canada ICI-ish accents */
+  --ici-blue:#0ea5e9;
+  --ici-red:#e11d2e;
+  --ici-blue-soft:#e6f6fd;
+  --ici-red-soft:#fde8ea;
+
+  --shadow:0 14px 35px rgba(16,24,40,.10);
 }
 
 *{box-sizing:border-box}
-
 body{
   margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,sans-serif;
-  background:var(--dark);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  background:
+    radial-gradient(900px 420px at 12% -10%, rgba(14,165,233,.12), transparent 55%),
+    radial-gradient(900px 420px at 90% 0%, rgba(225,29,46,.10), transparent 55%),
+    var(--bg);
   color:var(--text);
+  line-height:1.55;
 }
 
 .page{
   max-width:1150px;
-  margin:auto;
-  padding:30px 18px 60px;
+  margin:0 auto;
+  padding:26px 16px 54px;
 }
 
-/* HEADER */
+/* Header */
 header{
   display:flex;
   align-items:center;
-  gap:24px;
+  gap:18px;
+  padding:18px 18px;
   background:var(--panel);
-  padding:24px;
-  border-radius:16px;
-  margin-bottom:28px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+}
+
+header .logo{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-width:260px;
 }
 
 header img{
-  height:70px;
+  height:54px;
+  width:auto;
+}
+
+.eyebrow{
+  font-size:.78rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:6px;
 }
 
 h1{
   margin:0;
-  font-size:1.8rem;
+  font-size:1.75rem;
+  line-height:1.2;
 }
 
 .subtitle{
+  margin-top:6px;
   color:var(--muted);
   font-size:.95rem;
 }
 
-/* GRID */
-main{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:20px;
+.meta{
+  margin-left:auto;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:8px;
+  align-items:center;
 }
 
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:#fbfcff;
+  font-size:.85rem;
+  color:var(--muted);
+}
+.dot{
+  width:9px;height:9px;border-radius:999px;
+  background:var(--ici-blue);
+  box-shadow:0 0 0 3px rgba(14,165,233,.18);
+}
+
+/* Layout */
+main{
+  display:grid;
+  grid-template-columns:minmax(0,2.05fr) minmax(0,1fr);
+  gap:18px;
+  margin-top:18px;
+}
 @media(max-width:900px){
+  header{flex-direction:column; align-items:flex-start}
+  .meta{margin-left:0; justify-content:flex-start}
   main{grid-template-columns:1fr}
 }
 
-/* CARDS */
+/* Cards */
 .card{
-  background:var(--card);
-  padding:18px;
-  border-radius:14px;
-  margin-bottom:16px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px 14px;
+  box-shadow:var(--shadow);
+  margin-bottom:14px;
+}
+.card.soft{
+  background:linear-gradient(180deg,#ffffff, #fbfcff);
 }
 
 h2{
-  margin-top:0;
-  border-bottom:2px solid var(--ici-blue);
+  margin:0 0 10px;
+  font-size:1.15rem;
   padding-bottom:6px;
+  border-bottom:2px solid rgba(14,165,233,.20);
+}
+h3{
+  margin:14px 0 6px;
+  font-size:1rem;
+}
+
+ul{margin:8px 0 0; padding-left:18px}
+li+li{margin-top:6px}
+
+.small{font-size:.88rem}
+.muted{color:var(--muted)}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  font-size:.76rem;
+  padding:3px 8px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:#fbfcff;
+  color:var(--muted);
+  margin-left:8px;
+}
+
+.highlight{
+  margin-top:10px;
+  border-left:4px solid var(--ici-blue);
+  background:var(--ici-blue-soft);
+  padding:10px 12px;
+  border-radius:12px;
+}
+
+.callout-red{
+  border-left:4px solid var(--ici-red);
+  background:var(--ici-red-soft);
+  padding:10px 12px;
+  border-radius:12px;
+  margin-top:10px;
 }
 
 /* KPI tiles */
 .kpis{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:10px;
 }
+@media(max-width:520px){ .kpis{grid-template-columns:1fr} }
 
 .kpi{
-  background:#0b1220;
-  padding:12px;
-  border-radius:10px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:10px 12px;
+  background:#fbfcff;
 }
+.kpi .label{font-size:.78rem; color:var(--muted)}
+.kpi .value{font-size:1.18rem; font-weight:750; margin-top:2px}
+.kpi .value.blue{color:var(--ici-blue)}
+.kpi .value.red{color:var(--ici-red)}
+.kpi .note{font-size:.78rem; color:var(--muted); margin-top:2px}
 
-.kpi strong{
-  font-size:1.3rem;
-  color:var(--ici-blue);
+/* Charts */
+.chartWrap{
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:#fbfcff;
+  padding:10px 12px;
 }
+.chartTitle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:6px;
+}
+canvas{width:100% !important; height:235px !important}
 
-canvas{
-  margin-top:10px;
+/* Contact */
+.contact .row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:8px 10px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#fbfcff;
 }
-
-/* CONTACT */
-.contact div{
-  margin-bottom:8px;
-}
-
-.contact a{
-  color:var(--ici-blue);
-  text-decoration:none;
-}
+.contact .k{color:var(--muted); font-size:.86rem}
+.contact .v{font-weight:650; font-size:.9rem}
+a{color:#0b63ce; text-decoration:none}
+a:hover{text-decoration:underline}
 
 footer{
-  margin-top:40px;
+  margin-top:22px;
+  padding-top:14px;
   color:var(--muted);
-  font-size:.85rem;
+  font-size:.84rem;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:10px;
+  border-top:1px solid var(--border);
 }
 </style>
 </head>
@@ -128,10 +252,20 @@ footer{
 <div class="page">
 
 <header>
-  <img src="logo.png" alt="Canada ICI">
-  <div>
-    <h1>Alberta Multifamily Finance Update</h1>
-    <div class="subtitle">Edmonton • Calgary • CMHC & Conventional Financing Insights</div>
+  <div class="logo">
+    <!-- Update filename if you use logo.png instead -->
+    <img src="logo.webp" alt="Canada ICI">
+    <div>
+      <div class="eyebrow">Alberta Multifamily Market</div>
+      <h1>Alberta Multifamily Finance Update</h1>
+      <div class="subtitle">Transactions • Financing conditions • Housing & rental fundamentals (Edmonton + Calgary)</div>
+    </div>
+  </div>
+
+  <div class="meta">
+    <span class="pill"><span class="dot"></span><strong>Edition:</strong> February 2026</span>
+    <span class="pill"><strong>Prepared by:</strong> Joshua Oswald</span>
+    <span class="pill"><strong>Firm:</strong> Canada ICI Capital Corp.</span>
   </div>
 </header>
 
@@ -140,72 +274,277 @@ footer{
 <!-- LEFT COLUMN -->
 <div>
 
-<div class="card">
-<h2>Market Snapshot</h2>
-<ul>
-<li>Investor demand remains strong for stabilized assets in core Edmonton and Calgary nodes.</li>
-<li>Vacancy rates rising modestly as new supply delivers, but still below long-term averages.</li>
-<li>Underwriting focus: DSCR durability, lease-up pace, expense normalization.</li>
-</ul>
-</div>
+  <section id="market">
+    <div class="card">
+      <h2>1. Market Snapshot</h2>
+      <ul>
+        <li><strong>Sentiment:</strong> Investor interest in Alberta remains constructive, supported by relative affordability and continued demand for rental product.</li>
+        <li><strong>Underwriting tone:</strong> More attention on DSCR durability, concessions, and “new tenant” rent assumptions as supply delivers across several nodes.</li>
+        <li><strong>Big picture:</strong> The market is more balanced than 2022–2024, but well-located assets with clear capex visibility continue to clear financing hurdles.</li>
+      </ul>
+      <div class="highlight">
+        <strong>Quick take:</strong> Expect a wider gap between “A locations / strong physicals” and everything else. Execution and realism matter more than straight-line pro-forma growth.
+      </div>
+    </div>
+  </section>
 
-<div class="card">
-<h2>Vacancy Trend (%)</h2>
-<canvas id="vacancyChart"></canvas>
-</div>
+  <section id="charts">
+    <div class="card soft">
+      <h2>2. Key Trends <span class="badge">update monthly</span></h2>
 
-<div class="card">
-<h2>Housing Starts (Units)</h2>
-<canvas id="startsChart"></canvas>
-</div>
+      <div class="chartWrap" style="margin-bottom:10px;">
+        <div class="chartTitle">
+          <strong>Vacancy trend (Edmonton vs Calgary)</strong>
+          <span class="badge">%</span>
+        </div>
+        <canvas id="vacancyChart"></canvas>
+        <div class="small muted">Note: Edit the series in the script at the bottom as you update each month.</div>
+      </div>
+
+      <div class="chartWrap" style="margin-bottom:10px;">
+        <div class="chartTitle">
+          <strong>BoC policy rate (context)</strong>
+          <span class="badge">%</span>
+        </div>
+        <canvas id="policyChart"></canvas>
+      </div>
+
+      <div class="chartWrap">
+        <div class="chartTitle">
+          <strong>Housing starts (Edmonton vs Calgary)</strong>
+          <span class="badge">units</span>
+        </div>
+        <canvas id="startsChart"></canvas>
+      </div>
+
+      <div class="callout-red small">
+        <strong>How to use these charts:</strong> Keep them simple and consistent. The goal is “directionally right + readable,” not an econometrics paper.
+      </div>
+    </div>
+  </section>
+
+  <section id="transactions">
+    <div class="card">
+      <h2>3. Recent Transactions (Examples)</h2>
+
+      <h3>Edmonton</h3>
+      <ul class="small">
+        <li>
+          <strong>Connect Centre (ICE District) – retail podium + air rights</strong><br>
+          <span class="muted">Public deal announcement references a <strong>$65M</strong> acquisition of a <strong>113,776 sf</strong> grocery-anchored retail podium, along with air rights for a planned residential tower above (subject to approvals/structuring).</span>
+        </li>
+        <li>
+          <strong>Elite acquisition: Tower Hill + The Palisades (176 units)</strong><br>
+          <span class="muted">Industry coverage reported purchase price <strong>$37.0M</strong> (~<strong>$210k/suite</strong>) and referenced ~<strong>4.7% cap</strong>.</span>
+        </li>
+      </ul>
+
+      <h3>Calgary</h3>
+      <ul class="small">
+        <li><strong>Add 1–2 Calgary examples here</strong> (copy/paste links in the Sources section below and I’ll format the bullets cleanly).</li>
+      </ul>
+
+      <div class="highlight small">
+        <strong>Underwriting takeaway:</strong> For assets with stable occupancy, buyers continue to pay for location and durability. For transitional/value-add, lenders want a staged plan and conservative base case.
+      </div>
+    </div>
+  </section>
+
+  <section id="rates">
+    <div class="card">
+      <h2>4. Rates & Credit Conditions</h2>
+      <ul>
+        <li><strong>Policy rate:</strong> Use this space to update the latest BoC hold/cut narrative and what you’re seeing in lender quotes.</li>
+        <li><strong>Yield context:</strong> Anchor underwriting to the current GoC curve and a realistic spread range by lender/product.</li>
+        <li><strong>Credit posture:</strong> Strong preference for clean files: clear capex plan, strong reporting, and defensible rent assumptions.</li>
+      </ul>
+      <div class="highlight small">
+        <strong>Practical note:</strong> If concessions are appearing (free month, reduced deposits, etc.), capture them explicitly in underwriting and lender packages.
+      </div>
+    </div>
+  </section>
+
+  <section id="housing">
+    <div class="card">
+      <h2>5. Housing Starts & Rental Fundamentals</h2>
+
+      <div class="small muted">Use this section to summarize what the charts show, plus anything notable in CMHC reports (vacancy, turnover rents, incentives).</div>
+
+      <h3>Starts</h3>
+      <ul class="small">
+        <li><strong>Edmonton & Calgary:</strong> Starts remain elevated in several nodes, with rental supply continuing to deliver in waves.</li>
+      </ul>
+
+      <h3>Rental Market</h3>
+      <ul class="small">
+        <li><strong>Vacancy:</strong> Vacancy has moved up from the tightest years, improving tenant choice in some product types.</li>
+        <li><strong>Rents & incentives:</strong> Rent growth appears more mixed; incentives often show up first in newer/high-end supply.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="policy">
+    <div class="card">
+      <h2>6. Policy & CMHC Notes</h2>
+      <ul class="small">
+        <li><strong>CMHC market signal:</strong> Use this space to summarize the monthly/quarterly CMHC takeaway that actually changes underwriting.</li>
+        <li><strong>What moves the needle:</strong> affordability/energy/accessibility scoring impacts, application timing, and anything changing around refinance/second mortgage posture.</li>
+      </ul>
+      <div class="highlight small">
+        <strong>Suggestion:</strong> If you want, I can add a small “MLI Select tracker” box here that you update monthly with bullets.
+      </div>
+    </div>
+  </section>
+
+  <section id="structuring">
+    <div class="card">
+      <h2>7. How We’re Structuring Deals Right Now</h2>
+      <ul class="small">
+        <li><strong>Stabilized core assets:</strong> Target leverage that clears DSCR under conservative vacancy and defensible “new tenant” rents.</li>
+        <li><strong>Value-add / lease-up:</strong> Underwrite in-place as the base case; treat upside as optionality supported by comps and a realistic timeline.</li>
+        <li><strong>Conventional term debt:</strong> Use when speed/flexibility matters or CMHC fit is weak, with careful attention to refinance paths.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="case">
+    <div class="card">
+      <h2>8. Mini Case Study</h2>
+      <p class="small"><strong>Scenario:</strong> Concrete high-rise rental acquisition with embedded value-add.</p>
+      <p class="small"><strong>What underwriters focus on:</strong> turnover rent evidence, incentives, capex, and DSCR cushion under conservative assumptions.</p>
+      <p class="small"><strong>Takeaway:</strong> In a more balanced market, the “story” needs to be supported by comps, leasing pace, and a base case that still works without hero assumptions.</p>
+    </div>
+  </section>
+
+  <section id="sources">
+    <div class="card">
+      <h2>9. Sources & Notes</h2>
+      <ul class="small">
+        <li><strong>Connect Centre (ICE District):</strong> Add the DLA Piper deal announcement link + any trade coverage link.</li>
+        <li><strong>Elite / Boardwalk transaction:</strong> Add your preferred trade outlet link.</li>
+        <li><strong>BoC:</strong> Policy rate decision + selected bond yields table.</li>
+        <li><strong>CMHC:</strong> Rental Market Report for vacancy/turnover rents.</li>
+        <li><strong>Starts:</strong> CMHC starts table (monthly Edmonton/Calgary).</li>
+      </ul>
+      <p class="small muted">Tip: if you paste the URLs you want included, I’ll insert them cleanly as clickable links and keep the wording tight.</p>
+    </div>
+  </section>
 
 </div>
 
 <!-- RIGHT COLUMN -->
 <aside>
 
-<div class="card">
-<h2>At a Glance</h2>
+  <div class="card">
+    <h2>At a Glance</h2>
 
-<div class="kpis">
-  <div class="kpi">BoC Rate<br><strong>2.25%</strong></div>
-  <div class="kpi">Edm Vacancy<br><strong>3.8%</strong></div>
-  <div class="kpi">Cgy Vacancy<br><strong>2.5%</strong></div>
-  <div class="kpi">GoC 5-10yr<br><strong>~3.2%</strong></div>
-</div>
+    <div class="kpis">
+      <div class="kpi">
+        <div class="label">BoC policy rate</div>
+        <div class="value blue">2.25%</div>
+        <div class="note">Update monthly</div>
+      </div>
 
-</div>
+      <div class="kpi">
+        <div class="label">GoC avg yield (5–10y)</div>
+        <div class="value blue">~3.2%</div>
+        <div class="note">Context only</div>
+      </div>
 
-<div class="card contact">
-<h2>Contact</h2>
-<div><strong>Joshua Oswald</strong></div>
-<div>Associate Director, Origination</div>
-<div><a href="mailto:joswald@canadaici.com">joswald@canadaici.com</a></div>
-<div>780-667-0324</div>
-</div>
+      <div class="kpi">
+        <div class="label">Edmonton vacancy</div>
+        <div class="value red">3.8%</div>
+        <div class="note">Set to your preferred CMHC year</div>
+      </div>
+
+      <div class="kpi">
+        <div class="label">Calgary vacancy</div>
+        <div class="value red">2.5%</div>
+        <div class="note">Set to your preferred CMHC year</div>
+      </div>
+    </div>
+
+    <div class="highlight small">
+      <strong>Monthly prompt:</strong> “What changed since last edition?” Lead with 2–3 bullets before the data.
+    </div>
+  </div>
+
+  <div class="card contact">
+    <h2>Contact</h2>
+    <div class="row"><div class="k">Name</div><div class="v">Joshua Oswald</div></div>
+    <div class="row"><div class="k">Title</div><div class="v">Director, Origination</div></div>
+    <div class="row"><div class="k">Company</div><div class="v">Canada ICI Capital Corp.</div></div>
+    <div class="row"><div class="k">Email</div><div class="v"><a href="mailto:joswald@canadaici.com">joswald@canadaici.com</a></div></div>
+    <div class="row"><div class="k">Phone</div><div class="v">780-667-0324</div></div>
+
+    <p class="small muted" style="margin-top:10px;">
+      If you want, I can add a LinkedIn row (just send the URL).
+    </p>
+  </div>
 
 </aside>
 
 </main>
 
 <footer>
-© 2026 Canada ICI Capital Corp. | Informational only. Not investment advice.
+  <div>© 2026 Canada ICI Capital Corp.</div>
+  <div>This update is informational only and is not investment, tax, or lending advice.</div>
 </footer>
 
 </div>
 
 <script>
-/* ========= EDIT THESE MONTHLY ========= */
+/* ========= EDIT THESE SERIES EACH MONTH =========
+   Keep labels consistent and update the data points.
+*/
 const labels = ["Aug","Sep","Oct","Nov","Dec","Jan","Feb"];
+
+// Vacancy (example series; replace with your chosen CMHC series)
+const edmVac = [2.9,3.1,3.3,3.5,3.7,3.8,3.8];
+const cgyVac = [1.8,2.0,2.1,2.2,2.3,2.4,2.5];
+
+// Policy rate context (example; replace with exact history or your narrative)
+const policy = [5.00,4.75,4.50,4.25,4.00,2.25,2.25];
+
+// Starts (example; replace with CMHC table series you track)
+const edmStarts = [1500,1600,1700,1650,1714,1680,1700];
+const cgyStarts = [1100,1200,1300,1250,1245,1180,1210];
+
+const axisCommon = {
+  grid: { color: "rgba(17,24,39,.08)" },
+  ticks: { color: "rgba(91,102,122,.95)" }
+};
 
 new Chart(document.getElementById("vacancyChart"), {
   type:"line",
   data:{
     labels,
     datasets:[
-      {label:"Edmonton", data:[2.9,3.1,3.3,3.5,3.7,3.8,3.8], borderColor:"#1e9ac6"},
-      {label:"Calgary", data:[1.8,2.0,2.1,2.2,2.3,2.4,2.5], borderColor:"#e21b23"}
+      { label:"Edmonton", data:edmVac, borderColor:"#0ea5e9", backgroundColor:"rgba(14,165,233,.14)", tension:.35, borderWidth:2, pointRadius:2, fill:false },
+      { label:"Calgary", data:cgyVac, borderColor:"#e11d2e", backgroundColor:"rgba(225,29,46,.12)", tension:.35, borderWidth:2, pointRadius:2, fill:false }
     ]
+  },
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{ color:"#121826" } } },
+    scales:{ x:axisCommon, y:{ ...axisCommon, title:{ display:true, text:"%", color:"#5b667a" } } }
+  }
+});
+
+new Chart(document.getElementById("policyChart"), {
+  type:"line",
+  data:{
+    labels,
+    datasets:[
+      { label:"BoC policy rate", data:policy, borderColor:"#0ea5e9", tension:.35, borderWidth:2, pointRadius:2 }
+    ]
+  },
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{ color:"#121826" } } },
+    scales:{ x:axisCommon, y:{ ...axisCommon, title:{ display:true, text:"%", color:"#5b667a" } } }
   }
 });
 
@@ -214,9 +553,15 @@ new Chart(document.getElementById("startsChart"), {
   data:{
     labels,
     datasets:[
-      {label:"Edmonton", data:[1500,1600,1700,1650,1714,1680,1700], backgroundColor:"#1e9ac6"},
-      {label:"Calgary", data:[1100,1200,1300,1250,1245,1180,1210], backgroundColor:"#e21b23"}
+      { label:"Edmonton", data:edmStarts, backgroundColor:"rgba(14,165,233,.75)", borderRadius:6 },
+      { label:"Calgary", data:cgyStarts, backgroundColor:"rgba(225,29,46,.70)", borderRadius:6 }
     ]
+  },
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{ color:"#121826" } } },
+    scales:{ x:axisCommon, y:{ ...axisCommon, title:{ display:true, text:"units", color:"#5b667a" } } }
   }
 });
 </script>
